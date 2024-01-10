@@ -19,6 +19,8 @@ jobs:
       - run: npm init -y
       - run: npm install
       - run: npm ci
+      - name: Check .npmrc existence
+        run: ls /Users/runner/work/_temp/.npmrc
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GIT_TOKEN }}
