@@ -20,7 +20,8 @@ jobs:
       - run: npm install
       - run: npm ci
       - name: Check .npmrc existence
-        run: ls /Users/runner/work/_temp/.npmrc
+        run: if [ -f /Users/runner/work/_temp/.npmrc ]; then echo ".npmrc exists"; else echo ".npmrc does not exist"; fi
+      - run: npm publish
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GIT_TOKEN }}
