@@ -24,7 +24,10 @@ jobs:
         run: if [ -f /Users/runner/work/_temp/.npmrc ]; then echo ".npmrc exists"; else echo ".npmrc does not exist"; fi
       - name: Print .npmrc
         run: cat $NPM_CONFIG_USERCONFIG
-      - run: npm publish
+      - run: |
+         echo //npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN} > .npmrc
+         echo @shaanmugapriya:registry=https://npm.pkg.github.com/ >> .npmrc
+         echo always-auth=false >> .npmrc
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GIT_TOKEN }}
