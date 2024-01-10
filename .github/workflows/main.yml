@@ -1,0 +1,26 @@
+name: NPM Package
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish-gpr:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      # The setup-node action sets up a node.js environment for use in an action
+      - uses: actions/setup-node@v4
+        with:
+          node-version: latest
+          scope: '@shaanmugapriya'
+          registry-url: https://npm.pkg.github.com/
+      - run: npm -v
+      - run: npm init -y
+      - run: npm install
+      - run: npm ci
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GIT_TOKEN }}
+      - run: npm config list
+        if: ${{ failure() }}
