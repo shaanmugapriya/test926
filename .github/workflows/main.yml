@@ -21,6 +21,8 @@ jobs:
       - run: npm ci
       - name: Check .npmrc existence
         run: if [ -f /Users/runner/work/_temp/.npmrc ]; then echo ".npmrc exists"; else echo ".npmrc does not exist"; fi
+      - name: Print .npmrc
+        run: cat $NPM_CONFIG_USERCONFIG
       - run: npm publish
       - run: npm publish
         env:
